@@ -16,7 +16,6 @@ export async function handle({ event, resolve }) {
 
 	// reset the cookies in every navigation and page refresh
 	// this action can make sure fronted will always have laravel session and xsrf token
-	// if user delete the laravel session and xsrf token, he can restore them by remember me cookie
 	setCookies(userResponse.headers.getSetCookie(), event.cookies);
 
 	if (userResponse.status === 200) {
