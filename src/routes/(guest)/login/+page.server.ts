@@ -1,37 +1,15 @@
 import type { Actions, PageServerLoad } from './$types';
-import { type Cookies, fail, redirect } from '@sveltejs/kit';
-import { BACKEND_APP_URL } from '$env/static/private';
-import cookie from 'cookie';
-
-function setCookies(setCookies: string[], cookies: Cookies) {
-	setCookies.forEach((setCookie) => {
-		const record = cookie.parse(setCookie);
-
-		cookies.set(Object.keys(record)[0], record[Object.keys(record)[0]], {
-			httpOnly: true,
-			maxAge: parseInt(record['Max-Age'] ?? '7200'),
-			path: record['path'] ?? '/',
-			sameSite: record['samesite'] as boolean | 'lax' | 'strict' | 'none' | undefined
-		});
-	});
-}
-
-function generateCookieString(cookies: { name: string; value: string }[]): string {
-	let cookie_string = '';
-
-	cookies.forEach((cookie) => {
-		cookie_string += `${cookie.name}=${cookie.value};`;
-	});
-
-	return cookie_string;
-}
+import { fail, redirect } from '@sveltejs/kit';
+import { API_URL } from '$env/static/private';
+import setCookies from '$lib/helpers/setCookies';
+import generateCookieString from '$lib/helpers/generateCookieString';
 
 export const load: PageServerLoad = async ({ cookies }) => {
-	const csrfResponse = await fetch(`${BACKEND_APP_URL}/sanctum/csrf-cookie`, {
+	const csrfResponse = await fetch(`${API_URL}/sanctum/csrf-cookie`, {
 		method: 'GET'
 	});
 
-	setCookies(csrfResponse.headers.getSetCookie() ?? [], cookies);
+	setCookies(csrfResponse.headers.getSetCookie(), cookies);
 };
 
 export const actions = {
@@ -48,13 +26,13 @@ export const actions = {
 			return fail(400, { email, missing: true, message: '請輸入密碼' });
 		}
 
-		const cookieString = generateCookieString(cookies.getAll());
+		const cookieString: string = generateCookieString(cookies.getAll());
 
-		const loginResponse = await fetch(`${BACKEND_APP_URL}/login`, {
+		const loginResponse = await fetch(`${API_URL}/login`, {
 			method: 'POST',
 			headers: new Headers({
 				'Content-Type': 'application/json',
-				'X-XSRF-TOKEN': cookies.get('XSRF-TOKEN') as string,
+				'X-XSRF-TOKEN': cookies.get('XSRF-TOKEN') ?? '',
 				Cookie: cookieString
 			}),
 			body: JSON.stringify({
@@ -64,7 +42,7 @@ export const actions = {
 			})
 		});
 
-		setCookies(loginResponse.headers.getSetCookie() ?? [], cookies);
+		setCookies(loginResponse.headers.getSetCookie(), cookies);
 
 		redirect(303, '/dashboard');
 	}
