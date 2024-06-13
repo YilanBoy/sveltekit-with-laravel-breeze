@@ -13,7 +13,7 @@
 		</a>
 		<a
 			class="text-xl underline decoration-transparent transition duration-300 ease-in-out hover:decoration-inherit"
-			href="/login"
+			href="/register"
 		>
 			註冊 &rarr;
 		</a>

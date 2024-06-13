@@ -28,6 +28,10 @@ export async function handle({ event, resolve }) {
 		redirect(303, '/dashboard');
 	}
 
+	if (routeId.includes('/register') && event.locals.user) {
+		redirect(303, '/dashboard');
+	}
+
 	if (routeId.includes('/(auth)/') && !event.locals.user) {
 		redirect(303, '/login');
 	}

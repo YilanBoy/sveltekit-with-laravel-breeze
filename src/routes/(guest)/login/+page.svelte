@@ -11,8 +11,8 @@
 		class="hidden w-1/2 items-center justify-center overflow-hidden bg-gradient-to-tr from-teal-600 to-green-400 md:flex lg:flex"
 	>
 		<div class="size-64">
-			<h1 class="font-sans text-4xl font-bold text-white">開始動手</h1>
-			<p class="mt-1 text-white">準備好再次創造新奇的作品嗎？</p>
+			<h1 class="font-sans text-4xl font-bold text-gray-50">開始動手</h1>
+			<p class="mt-1 text-gray-50">準備好再次創造新奇的作品嗎？</p>
 			<a
 				href="/register"
 				class="mb-2 mt-4 block w-fit rounded-xl bg-gray-50 px-4 py-2 font-bold text-emerald-600 transition duration-200 hover:bg-gray-200 active:bg-gray-300"
@@ -22,7 +22,7 @@
 	</div>
 	<div class="flex items-center justify-center bg-gray-50 py-10 md:w-1/2">
 		<form class="bg-gray-50" method="POST">
-			{#if form?.missing}
+			{#if form?.error}
 				<p class="my-4 text-red-500">{form?.message}</p>
 			{/if}
 			<h1 class="mb-1 text-2xl font-bold text-gray-800">登入</h1>
