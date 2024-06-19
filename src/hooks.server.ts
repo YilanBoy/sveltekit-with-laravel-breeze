@@ -14,7 +14,8 @@ export async function handle({ event, resolve }) {
 		}
 	});
 
-	// reset the cookies in every navigation and page refresh
+	// user response will also return the csrf token, so we don't need to use csrf token api
+	// set cookies in every navigation and page refresh
 	// this action can make sure fronted will always have laravel session and xsrf token
 	setCookies(event.cookies, userResponse.headers.getSetCookie());
 

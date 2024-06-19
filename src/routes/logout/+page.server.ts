@@ -12,12 +12,6 @@ export const load: PageServerLoad = async () => {
 
 export const actions = {
 	default: async ({ fetch, cookies }) => {
-		const csrfResponse = await fetch(`${API_URL}/sanctum/csrf-cookie`, {
-			method: 'GET'
-		});
-
-		setCookies(cookies, csrfResponse.headers.getSetCookie());
-
 		const cookieString: string = generateCookieString(cookies.getAll());
 
 		await fetch(`${API_URL}/logout`, {

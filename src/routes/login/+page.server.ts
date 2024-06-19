@@ -18,12 +18,6 @@ export const actions = {
 			return fail(400, { email, error: true, message: '請輸入密碼' });
 		}
 
-		const csrfResponse = await fetch(`${API_URL}/sanctum/csrf-cookie`, {
-			method: 'GET'
-		});
-
-		setCookies(cookies, csrfResponse.headers.getSetCookie());
-
 		const cookieString: string = generateCookieString(cookies.getAll());
 
 		const loginResponse = await fetch(`${API_URL}/login`, {

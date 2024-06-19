@@ -32,12 +32,6 @@ export const actions = {
 			return fail(400, { name, email, error: true, message: '密碼確認欄位的輸入不一致' });
 		}
 
-		const csrfResponse = await fetch(`${API_URL}/sanctum/csrf-cookie`, {
-			method: 'GET'
-		});
-
-		setCookies(cookies, csrfResponse.headers.getSetCookie());
-
 		const cookieString: string = generateCookieString(cookies.getAll());
 
 		const registerResponse = await fetch(`${API_URL}/register`, {
