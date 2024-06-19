@@ -16,7 +16,7 @@ export const actions = {
 			method: 'GET'
 		});
 
-		setCookies(csrfResponse.headers.getSetCookie(), cookies);
+		setCookies(cookies, csrfResponse.headers.getSetCookie());
 
 		const cookieString: string = generateCookieString(cookies.getAll());
 

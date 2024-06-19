@@ -22,7 +22,7 @@ export const actions = {
 			method: 'GET'
 		});
 
-		setCookies(csrfResponse.headers.getSetCookie(), cookies);
+		setCookies(cookies, csrfResponse.headers.getSetCookie());
 
 		const cookieString: string = generateCookieString(cookies.getAll());
 
@@ -47,7 +47,7 @@ export const actions = {
 			return fail(400, { password, error: true, message: loginResponseJson.message });
 		}
 
-		setCookies(loginResponse.headers.getSetCookie(), cookies);
+		setCookies(cookies, loginResponse.headers.getSetCookie());
 
 		redirect(303, '/dashboard');
 	}

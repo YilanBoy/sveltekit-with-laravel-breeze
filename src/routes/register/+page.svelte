@@ -8,6 +8,10 @@
 	export let form: ActionData;
 </script>
 
+<svelte:head>
+	<title>註冊</title>
+</svelte:head>
+
 <div class="h-screen md:flex">
 	<div
 		class="hidden w-1/2 items-center justify-center overflow-hidden bg-gradient-to-tr from-purple-700 to-blue-500 md:flex lg:flex"

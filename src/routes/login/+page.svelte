@@ -6,6 +6,10 @@
 	export let form: ActionData;
 </script>
 
+<svelte:head>
+	<title>登入</title>
+</svelte:head>
+
 <div class="h-screen md:flex">
 	<div
 		class="hidden w-1/2 items-center justify-center overflow-hidden bg-gradient-to-tr from-teal-600 to-green-400 md:flex lg:flex"

@@ -1,7 +1,7 @@
 import type { Cookies } from '@sveltejs/kit';
 import cookie from 'cookie';
 
-export default function setCookies(setCookies: string[], cookies: Cookies): void {
+export default function setCookies(cookies: Cookies, setCookies: string[]): void {
 	setCookies.forEach((setCookie: string): void => {
 		const record = cookie.parse(setCookie);
 		const cookieName: string = Object.keys(record)[0];

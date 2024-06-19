@@ -41,25 +41,25 @@ npm run dev -- --open --port 3000
 > 
 > Because we use the cookie-based authentication, it means request should be **STATEFUL**.
 > In the Laravel Sanctum default settings, there are only few domains allow to be stateful. 
->
-> ```php
-> // config/sanctum.php
-> 
-> return [
->     // ...
-> 
->     'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
->         '%s%s%s',
->         'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1',
->         Sanctum::currentApplicationUrlWithPort(),
->         // Although you can set the FRONTEND_URL, the port is removed here.
->         env('FRONTEND_URL')
->             ? ','.parse_url(env('FRONTEND_URL'), PHP_URL_HOST)
->             : ''
->     ))),
->     
->     // ...
-> ]
-> ```
+
+```php
+// config/sanctum.php
+
+return [
+    // ...
+
+    'stateful' => explode(',', env('SANCTUM_STATEFUL_DOMAINS', sprintf(
+        '%s%s%s',
+        'localhost,localhost:3000,127.0.0.1,127.0.0.1:8000,::1',
+        Sanctum::currentApplicationUrlWithPort(),
+        // Although you can set the FRONTEND_URL, the port is removed here.
+        env('FRONTEND_URL')
+            ? ','.parse_url(env('FRONTEND_URL'), PHP_URL_HOST)
+            : ''
+    ))),
+    
+    // ...
+]
+```
 
 

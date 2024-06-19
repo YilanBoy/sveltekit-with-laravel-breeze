@@ -2,6 +2,10 @@
 	import { page } from '$app/stores';
 </script>
 
+<svelte:head>
+	<title>儀表板</title>
+</svelte:head>
+
 <div class="flex h-screen flex-col items-center justify-center text-gray-950">
 	<h1 class="text-4xl"><span class="text-blue-500">{$page.data.user.name}</span>，您好！</h1>
 	<form id="logout" action="/logout" method="POST" class="hidden"></form>

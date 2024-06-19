@@ -3,20 +3,20 @@ import { redirect } from '@sveltejs/kit';
 import setCookies from '$lib/helpers/setCookies';
 
 export async function handle({ event, resolve }) {
-	const cookie: string = event.request.headers.get('cookie') ?? '';
+	const cookieString: string = event.request.headers.get('cookie') ?? '';
 	const routeId: string = event.route.id ?? '';
 
 	const userResponse = await event.fetch(`${API_URL}/api/user`, {
 		method: 'GET',
 		headers: {
 			Accept: 'application/json',
-			Cookie: cookie
+			Cookie: cookieString
 		}
 	});
 
 	// reset the cookies in every navigation and page refresh
 	// this action can make sure fronted will always have laravel session and xsrf token
-	setCookies(userResponse.headers.getSetCookie(), event.cookies);
+	setCookies(event.cookies, userResponse.headers.getSetCookie());
 
 	if (userResponse.status === 200) {
 		// extend `Locals` interface in SvelteKit

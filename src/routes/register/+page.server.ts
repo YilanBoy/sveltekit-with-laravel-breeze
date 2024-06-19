@@ -36,7 +36,7 @@ export const actions = {
 			method: 'GET'
 		});
 
-		setCookies(csrfResponse.headers.getSetCookie(), cookies);
+		setCookies(cookies, csrfResponse.headers.getSetCookie());
 
 		const cookieString: string = generateCookieString(cookies.getAll());
 
@@ -61,7 +61,7 @@ export const actions = {
 			return fail(400, { name, email, error: true, message: registerResponseJson.message });
 		}
 
-		setCookies(registerResponse.headers.getSetCookie(), cookies);
+		setCookies(cookies, registerResponse.headers.getSetCookie());
 
 		redirect(303, '/dashboard');
 	}
