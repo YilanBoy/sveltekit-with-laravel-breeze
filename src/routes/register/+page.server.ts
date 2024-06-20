@@ -1,8 +1,8 @@
 import { API_URL } from '$env/static/private';
-import setCookies from '$lib/helpers/setCookies';
 import { fail, redirect } from '@sveltejs/kit';
 import generateCookieString from '$lib/helpers/generateCookieString';
 import type { Actions } from './$types';
+import cookie from 'cookie';
 
 export const actions = {
 	default: async ({ request, cookies, fetch }) => {
@@ -55,7 +55,19 @@ export const actions = {
 			return fail(400, { name, email, error: true, message: registerResponseJson.message });
 		}
 
-		setCookies(cookies, registerResponse.headers.getSetCookie());
+		const setCookies = registerResponse.headers.getSetCookie();
+
+		for (const setCookie of setCookies) {
+			const record = cookie.parse(setCookie);
+			const cookieName: string = Object.keys(record)[0];
+
+			cookies.set(cookieName, record[cookieName], {
+				httpOnly: true,
+				maxAge: parseInt(record['Max-Age'] ?? '7200'),
+				path: record['path'] ?? '/',
+				sameSite: record['samesite'] as boolean | 'lax' | 'strict' | 'none' | undefined
+			});
+		}
 
 		redirect(303, '/dashboard');
 	}

@@ -2,7 +2,6 @@ import { redirect } from '@sveltejs/kit';
 import type { Actions, PageServerLoad } from './$types';
 import generateCookieString from '$lib/helpers/generateCookieString';
 import { API_URL } from '$env/static/private';
-import setCookies from '$lib/helpers/setCookies';
 
 export const load: PageServerLoad = async () => {
 	// we only use this endpoint for the api
