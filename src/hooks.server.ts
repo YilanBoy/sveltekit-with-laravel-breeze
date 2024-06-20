@@ -2,6 +2,19 @@ import { API_URL } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import cookie from 'cookie';
 
+type auth = {
+	id: number;
+	name: string;
+	email: string;
+	email_verified_at: string;
+	created_at: string;
+	updated_at: string;
+};
+
+type guest = {
+	message: 'Unauthenticated.';
+};
+
 export async function handle({ event, resolve }) {
 	const cookieString: string = event.request.headers.get('cookie') ?? '';
 	const routeId: string = event.route.id ?? '';
@@ -14,9 +27,9 @@ export async function handle({ event, resolve }) {
 		}
 	});
 
-	// user response will also return the csrf token, so we don't need to use csrf token api
+	// user api will also return the csrf token, so we don't need to use csrf token api
 	// set cookies in every navigation and page refresh
-	// this action can make sure fronted will always have laravel session and xsrf token
+	// this action can make sure front-end will always have laravel session and xsrf token
 	const setCookies = userResponse.headers.getSetCookie();
 
 	for (const setCookie of setCookies) {
@@ -31,10 +44,12 @@ export async function handle({ event, resolve }) {
 		});
 	}
 
+	const userData: auth | guest = await userResponse.json();
+
 	if (userResponse.status === 200) {
 		// extend `Locals` interface in SvelteKit
 		// https://stackoverflow.com/questions/73738077/how-to-extend-locals-interface-in-sveltekit
-		event.locals.user = await userResponse.json();
+		event.locals.user = userData;
 	}
 
 	if (routeId.includes('/login') && event.locals.user) {
