@@ -15,6 +15,17 @@ type guest = {
 	message: 'Unauthenticated.';
 };
 
+function isAuthenticated(user: auth | guest): user is auth {
+	return (
+		(user as auth).id !== undefined &&
+		(user as auth).name !== undefined &&
+		(user as auth).email !== undefined &&
+		(user as auth).email_verified_at !== undefined &&
+		(user as auth).created_at !== undefined &&
+		(user as auth).updated_at !== undefined
+	);
+}
+
 export async function handle({ event, resolve }) {
 	const cookieString: string = event.request.headers.get('cookie') ?? '';
 	const routeId: string = event.route.id ?? '';
@@ -44,12 +55,12 @@ export async function handle({ event, resolve }) {
 		});
 	}
 
-	const userData: auth | guest = await userResponse.json();
+	const user: auth | guest = await userResponse.json();
 
-	if (userResponse.status === 200) {
+	if (isAuthenticated(user)) {
 		// extend `Locals` interface in SvelteKit
 		// https://stackoverflow.com/questions/73738077/how-to-extend-locals-interface-in-sveltekit
-		event.locals.user = userData;
+		event.locals.user = user;
 	}
 
 	if (routeId.includes('/login') && event.locals.user) {
