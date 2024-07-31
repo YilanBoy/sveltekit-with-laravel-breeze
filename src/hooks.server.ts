@@ -1,15 +1,16 @@
 import { API_URL } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import cookie from 'cookie';
+import type { Auth, Guest } from '$lib/types/user';
 
 function isAuthenticated(user: Auth | Guest): user is Auth {
 	return (
-		(user as auth).id !== undefined &&
-		(user as auth).name !== undefined &&
-		(user as auth).email !== undefined &&
-		(user as auth).email_verified_at !== undefined &&
-		(user as auth).created_at !== undefined &&
-		(user as auth).updated_at !== undefined
+		(user as Auth).id !== undefined &&
+		(user as Auth).name !== undefined &&
+		(user as Auth).email !== undefined &&
+		(user as Auth).email_verified_at !== undefined &&
+		(user as Auth).created_at !== undefined &&
+		(user as Auth).updated_at !== undefined
 	);
 }
 

@@ -1,4 +1,7 @@
-type Auth = {
+// Don't put your types in .d.ts files
+// https://www.youtube.com/watch?v=zu-EgnbmcLY
+
+export type Auth = {
 	id: number;
 	name: string;
 	email: string;
@@ -7,6 +10,6 @@ type Auth = {
 	updated_at: string;
 };
 
-type Guest = {
+export type Guest = {
 	message: 'Unauthenticated.';
 };
