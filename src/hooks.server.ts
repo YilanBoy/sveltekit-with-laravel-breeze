@@ -2,20 +2,7 @@ import { API_URL } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
 import cookie from 'cookie';
 
-type auth = {
-	id: number;
-	name: string;
-	email: string;
-	email_verified_at: string;
-	created_at: string;
-	updated_at: string;
-};
-
-type guest = {
-	message: 'Unauthenticated.';
-};
-
-function isAuthenticated(user: auth | guest): user is auth {
+function isAuthenticated(user: Auth | Guest): user is Auth {
 	return (
 		(user as auth).id !== undefined &&
 		(user as auth).name !== undefined &&
@@ -55,23 +42,17 @@ export async function handle({ event, resolve }) {
 		});
 	}
 
-	const user: auth | guest = await userResponse.json();
+	event.locals.user = await userResponse.json();
 
-	if (isAuthenticated(user)) {
-		// extend `Locals` interface in SvelteKit
-		// https://stackoverflow.com/questions/73738077/how-to-extend-locals-interface-in-sveltekit
-		event.locals.user = user;
-	}
-
-	if (routeId.includes('/login') && event.locals.user) {
+	if (routeId.includes('/login') && isAuthenticated(event.locals.user)) {
 		redirect(303, '/dashboard');
 	}
 
-	if (routeId.includes('/register') && event.locals.user) {
+	if (routeId.includes('/register') && isAuthenticated(event.locals.user)) {
 		redirect(303, '/dashboard');
 	}
 
-	if (routeId.includes('/(auth)/') && !event.locals.user) {
+	if (routeId.includes('/(auth)/') && !isAuthenticated(event.locals.user)) {
 		redirect(303, '/login');
 	}
 
