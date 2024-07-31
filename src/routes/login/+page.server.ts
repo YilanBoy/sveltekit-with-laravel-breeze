@@ -38,7 +38,7 @@ export const actions = {
 		if (loginResponse.status !== 204) {
 			const loginResponseJson = await loginResponse.json();
 
-			return fail(400, { password, error: true, message: loginResponseJson.message });
+			return fail(400, { email, error: true, message: loginResponseJson.message });
 		}
 
 		const setCookies = loginResponse.headers.getSetCookie();
