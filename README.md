@@ -1,10 +1,12 @@
-# SvelteKit with Laravel Breeze
+# SvelteKit with Laravel Breeze (WIP)
 
 A SvelteKit template project show how to use Laravel Breeze as a backend.
 
 > [!IMPORTANT]
 > 
 > The authentication use Laravel official package - [Laravel Sanctum](https://laravel.com/docs/11.x/sanctum), this package provides the cookie-based authentication.
+> 
+> The project is simple at the moment, with only login and route protection. I'm currently using it to develop my blog CMS. Still work in progress.
 
 ## Installation
 
@@ -35,12 +37,10 @@ Start the local website.
 npm run dev -- --open --port 3000
 ```
 
-> [!NOTE]
-> 
-> I suggest using 80 or 3000 as the default port.
-> 
-> Because we use the cookie-based authentication, it means request should be **STATEFUL**.
-> In the Laravel Sanctum default settings, there are only few domains allow to be stateful. 
+I suggest using 80 or 3000 as the default port.
+
+Because we use the cookie-based authentication, it means request should be **STATEFUL**.
+In the Laravel Sanctum default settings, there are only few domains allow to be stateful.
 
 ```php
 // config/sanctum.php
@@ -62,4 +62,4 @@ return [
 ]
 ```
 
-
+You can also update the Laravel Sanctum config and make 5173 port be stateful. It's OK.
