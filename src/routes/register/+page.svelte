@@ -34,7 +34,7 @@
 			<h1 class="mb-1 text-2xl font-bold text-gray-800">註冊</h1>
 			<p class="mb-7 text-sm font-normal text-gray-600">歡迎你來，很高興認識你</p>
 			<div class="mb-4 flex items-center rounded-2xl border-2 px-3 py-2">
-				<User classList="size-5 text-gray-400" />
+				<User className="size-5 text-gray-400" />
 				<input
 					class="border-none bg-transparent pl-2 outline-none"
 					type="text"
@@ -45,7 +45,7 @@
 				/>
 			</div>
 			<div class="mb-4 flex items-center rounded-2xl border-2 px-3 py-2">
-				<CommercialAt classList="size-5 text-gray-400" />
+				<CommercialAt className="size-5 text-gray-400" />
 				<input
 					class="border-none bg-transparent pl-2 outline-none"
 					type="text"
@@ -56,7 +56,7 @@
 				/>
 			</div>
 			<div class="mb-4 flex items-center rounded-2xl border-2 px-3 py-2">
-				<Lock classList="h-5 w-5 text-gray-400" />
+				<Lock className="h-5 w-5 text-gray-400" />
 				<input
 					class="border-none bg-transparent pl-2 outline-none"
 					type="password"
@@ -66,7 +66,7 @@
 				/>
 			</div>
 			<div class="flex items-center rounded-2xl border-2 px-3 py-2">
-				<Lock classList="h-5 w-5 text-gray-400" />
+				<Lock className="h-5 w-5 text-gray-400" />
 				<input
 					class="border-none bg-transparent pl-2 outline-none"
 					type="password"

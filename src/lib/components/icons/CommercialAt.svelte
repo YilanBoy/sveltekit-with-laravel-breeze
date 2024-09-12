@@ -1,10 +1,10 @@
 <script lang="ts">
-	export let classList = 'size-5';
+	export let className = 'size-5';
 </script>
 
 <svg
 	xmlns="http://www.w3.org/2000/svg"
-	class={classList}
+	class={className}
 	fill="none"
 	viewBox="0 0 24 24"
 	stroke="currentColor"
