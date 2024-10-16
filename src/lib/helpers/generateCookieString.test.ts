@@ -14,6 +14,6 @@ describe('Cookie helper', () => {
 			}
 		];
 
-		expect(generateCookieString(cookies)).toBe('cookie-1=apple;cookie-2=banana;');
+		expect(generateCookieString(cookies)).toBe('cookie-1=apple;cookie-2=banana');
 	});
 });

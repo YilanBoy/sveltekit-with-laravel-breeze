@@ -1,8 +1,8 @@
 import type { Actions } from './$types';
 import { fail, redirect } from '@sveltejs/kit';
 import { API_URL } from '$env/static/private';
-import generateCookieString from '$lib/helpers/generateCookieString';
 import cookie from 'cookie';
+import generateCookieString from '$lib/helpers/generateCookieString';
 
 export const actions = {
 	default: async ({ request, cookies, fetch }) => {
@@ -18,15 +18,13 @@ export const actions = {
 			return fail(400, { email, error: true, message: '請輸入密碼' });
 		}
 
-		const cookieString: string = generateCookieString(cookies.getAll());
-
 		const loginResponse = await fetch(`${API_URL}/login`, {
 			method: 'POST',
 			headers: new Headers({
 				Accept: 'application/json',
 				'Content-Type': 'application/json',
 				'X-XSRF-TOKEN': cookies.get('XSRF-TOKEN') ?? '',
-				Cookie: cookieString
+				Cookie: generateCookieString(cookies.getAll())
 			}),
 			body: JSON.stringify({
 				email: data.get('email'),

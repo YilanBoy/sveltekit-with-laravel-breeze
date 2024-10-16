@@ -11,13 +11,11 @@ export const load: PageServerLoad = async () => {
 
 export const actions = {
 	default: async ({ fetch, cookies }) => {
-		const cookieString: string = generateCookieString(cookies.getAll());
-
 		await fetch(`${API_URL}/logout`, {
 			method: 'POST',
 			headers: new Headers({
 				'X-XSRF-TOKEN': cookies.get('XSRF-TOKEN') ?? '',
-				Cookie: cookieString
+				Cookie: generateCookieString(cookies.getAll())
 			})
 		});
 
